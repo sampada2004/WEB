@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Management</title>
+</head>
+<body>
+    <h2>Add Student Attendance</h2>
+    <form action="/add-student" method="POST">
+        Name: <input type="text" name="name" required><br><br>
+        USN: <input type="text" name="usn" required><br><br>
+        Department: <input type="text" name="dept" required><br><br>
+        Total Classes: <input type="number" name="total" required><br><br>
+        Classes Attended: <input type="number" name="attended" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="/low-attendance">View Low Attendance Students</a>
+</body>
+</html>

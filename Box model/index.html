@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Box Model Demo</title>
+  <style>
+    /* h1 style */
+    h1 {
+      border: 1px solid red;
+      background-color: #D18C1D;
+      padding: 10px;
+    }
+
+    /* list item style */
+    li {
+      margin: 15px;
+      background-color: #C0A9DB;
+    }
+
+    /* paragraph style */
+    .box-paragraph {
+      width: 600px;
+      height: 400px;
+      border: 2px dotted black;
+      background-color: #D1D631;
+      padding: 10px;
+      box-sizing: border-box; /* makes sure padding doesn't increase total size */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to the Box Model Page</h1>
+
+  <ul>
+    <li>First list item</li>
+    <li>Second list item</li>
+    <li>Third list item</li>
+  </ul>
+
+  <p class="box-paragraph">
+    This paragraph is inside a 600x400 pixel box. It has a 2px dotted black border and a light green background.
+    The box model includes content, padding, border, and margin. This ensures everything is spaced and styled cleanly.
+  </p>
+
+</body>
+</html>

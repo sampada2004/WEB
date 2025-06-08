@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function totalPrice(tax)
+        {
+            return function(base)
+            {
+                var netprice=base+(base*tax/100);
+                document.getElementById("res").innerText=netprice;
+            }
+        }
+
+        function inpt(){
+            var basePrice = parseFloat(document.getElementById("inp").value);
+            if (isNaN(basePrice)) {
+                document.getElementById("res").innerText = "Please enter a valid number!";
+                return;
+            }
+            var with18per = totalPrice(18); // closure created with 18% tax
+            with18per(basePrice);
+        } 
+    </script>
+</head>
+<body>
+    <input type="text" id="inp">
+    <button  onclick="inpt()">click</button>
+    <p id="res"></p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Management System</title>
+</head>
+<body>
+    <h2>Enter Student Exam Details</h2>
+    <form action="/add-student" method="POST">
+        Name: <input type="text" name="name" required><br><br>
+        USN: <input type="text" name="usn" required><br><br>
+        Subject: <input type="text" name="subject" required><br><br>
+        Marks: <input type="number" name="marks" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <a href="/not-eligible">View Not Eligible Students</a>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Form</title>
+</head>
+<body>
+
+  <h2>Student Form</h2>
+  <form>
+    
+    <!-- a) Name -->
+    <label for="name">Name (Only letters)*:</label>
+    <input type="text" id="name" name="name" pattern="[A-Za-z\s]+" required
+           placeholder="Enter your name">
+
+    <!-- b) Email -->
+    <label for="email">Email*:</label>
+    <input type="email" id="email" name="email" required
+           placeholder="Please enter valid email address">
+
+    <!-- c) Phone -->
+    <label for="phone">Phone (080-555-5555):</label>
+    <input type="tel" id="phone" name="phone" pattern="\d{3}-\d{3}-\d{4}"
+           placeholder="080-555-5555">
+
+    <!-- d) Semester -->
+    <label for="semester">Semester (1 to 8):</label>
+    <input type="number" id="semester" name="semester" min="1" max="8"
+           placeholder="Enter semester">
+
+    <!-- e) Branch -->
+    <label for="branch">Branch:</label>
+    <input list="branches" name="branch" id="branch">
+    <datalist id="branches">
+      <option value="CSE">
+      <option value="ECE">
+      <option value="EEE">
+      <option value="Mechanical">
+      <option value="Civil">
+    </datalist>
+
+    <!-- f) Website -->
+    <label for="website">Website (starts with http://)*:</label>
+    <input type="url" id="website" name="website" required
+           pattern="http://.*" placeholder="http://yourwebsite.com">
+
+    <input type="submit" value="Submit">
+  </form>
+
+</body>
+</html>
