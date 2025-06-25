@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Academic Data using Closures</title>
+</head>
+<body>
+
+    <h2>Enter Student Academic Data</h2>
+
+    <label>USN:</label><input type="text" id="usn"><br>
+    <label>Subject Code:</label><input type="text" id="subjectCode"><br>
+    <label>Subject Name:</label><input type="text" id="subjectName"><br>
+    <label>CIE Marks:</label><input type="number" id="cieMarks"><br>
+    <label>SEE Marks:</label><input type="number" id="seeMarks"><br>
+    <button onclick="addStudent()">Submit</button>
+
+    <div id="output"></div>
+
+    <script>
+        function Student(usn, subjectCode, subjectName, cieMarks, seeMarks) {
+            let cie = cieMarks;
+            let see = seeMarks;
+
+            return {
+                getDetails: function () {
+                    return {
+                        usn: usn,
+                        subjectCode: subjectCode,
+                        subjectName: subjectName
+                    };
+                },
+                getTotalMarks: function () {
+                    return cie + see;
+                },
+                displayDetails: function () {
+                    const details = this.getDetails();
+                    let result = "USN: " + details.usn + "<br>" +
+                                 "Subject Code: " + details.subjectCode + "<br>" +
+                                 "Subject Name: " + details.subjectName + "<br>" +
+                                 "Total Marks: " + this.getTotalMarks();
+                    document.getElementById("output").innerHTML = result;
+                }
+            };
+        }
+
+        function addStudent() {
+            const usn = document.getElementById("usn").value;
+            const subjectCode = document.getElementById("subjectCode").value;
+            const subjectName = document.getElementById("subjectName").value;
+            const cieMarks = parseInt(document.getElementById("cieMarks").value);
+            const seeMarks = parseInt(document.getElementById("seeMarks").value);
+
+            const student = Student(usn, subjectCode, subjectName, cieMarks, seeMarks);
+            student.displayDetails();
+        }
+    </script>
+
+</body>
+</html>

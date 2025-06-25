@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function notBad(str){
+        const notindex=str.indexOf('not');
+        const badindex=str.indexOf('bad');
+        if(notindex!==-1&&badindex!==-1&&badindex>notindex)
+        {
+            return str.slice(0,notindex)+'good'+str.slice(badindex+3);
+        }
+        return str;
+        }
+        function changes(){
+            const input = document.getElementById("inp").value;
+            const result = notBad(input);
+            document.getElementById("res").innerText = result;        }
+</script>
+<body>
+    <input type="text" id="inp">
+    <button onclick="changes()"></button>
+    <p id="res"></p>
+</body>
+</html>

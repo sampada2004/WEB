@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    const getmonth=(function(){
+        const months=["Jan","F","M","A","M","J","JULY","Aug","Sep","Oct","Nov","Dec"];
+        return function(monthNumber)
+        {
+            const number=parseInt(monthNumber)
+            if(isNaN(number)||number<1||number>12){
+                return "Bad";
+            }
+            return months[number-1];
+        }
+    })();
+    function convert()
+    {
+        var inp=document.getElementById("inp").value;
+        var res=getmonth(inp);
+        document.getElementById("res").innerText=res;
+    }
+</script>
+<body>
+    <input id="inp" type="text">
+    <button onclick="convert()">Convert</button>
+    <p id="res"></p>
+</body>
+</html>

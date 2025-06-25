@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" placeholder="enter text" id="sen"/>
+    <button onclick="translateTxt()">Translate</button>
+    <div id="result"></div>
+
+    <script>
+        
+        const getMonth = () =>
+        {
+            const months = [ 'Jan' , 'F', 'Mar', 'Ap', "May", "Jun", "Jul", "A", "S", "O","Nov", "D"];
+
+            return function(num)
+            {
+                const intNum = Math.floor(num);
+                if(intNum < 1 || intNum >12)
+                {
+                    return "bad Number";
+                }
+                return months[intNum -1];
+            };
+        };
+
+        const monthTranslator = getMonth();
+
+        function translateTxt()
+        {
+            const input = document.getElementById("sen").value;
+            const num = parseFloat(input);
+            const convertnum = monthTranslator(num);
+            document.getElementById("result").innerHTML = convertnum;
+
+        }
+
+    </script>
+</body>
+</html>
