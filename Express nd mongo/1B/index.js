@@ -44,5 +44,5 @@ app.get('/insert', async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log('Listening on port 5000');
+  console.log('Listening on port 5000');
 });

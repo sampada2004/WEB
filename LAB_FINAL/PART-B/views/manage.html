@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Complaints</title>
+</head>
+<body>
+  <h2>Update Complaint Status</h2>
+  <form method="post" action="/updateStatusForm">
+    <label>Complaint ID:</label><br>
+    <input type="text" name="cid" required><br><br>
+
+    <label>New Status:</label><br>
+    <input type="text" name="status" required><br><br>
+
+    <button type="submit">Update Status</button>
+  </form>
+
+  <hr>
+
+  <h2>View Complaints</h2>
+  <form method="GET" action="/pendingComplaints" target="_blank">
+    <button type="submit">View Pending Complaints (JSON)</button>
+  </form>
+
+  <form method="GET" action="/allComplaints" target="_blank">
+    <button type="submit">View All Complaints (JSON)</button>
+  </form>
+
+  <br>
+  <a href="/">Go Back to Add Complaint</a>
+</body>
+</html>

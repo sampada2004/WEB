@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Management</title>
+</head>
+<body>
+    <h2>Add Hospital</h2>
+    <form action="/add" method="get">
+        Hospital ID: <input type="text" name="hid"><br>
+        Name: <input type="text" name="name"><br>
+        Location: <input type="text" name="loc"><br>
+        Total Beds: <input type="text" name="tb"><br>
+        Occupied Beds: <input type="text" name="ob"><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Admit Patient</h2>
+    <form action="/admit" method="post">
+        Hospital ID: <input type="text" name="hid"><br>
+        <button type="submit">Admit</button>
+    </form>
+
+    <h2>Display Hospitals with < 10 Available Beds</h2>
+    <a href="/display" target="_blank">View</a>
+    <h2>View All Hospitals</h2>
+<a href="/viewall" target="_blank">View All</a>
+
+</body>
+</html>
