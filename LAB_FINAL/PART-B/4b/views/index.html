@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Internship Form</title>
+  <title>Internship Form</title>
 </head>
 <body>
-    <h2>Internship Submission Form</h2>
-    <form action="/adddata" method="get">
-        Student ID: <input type="text" name="sid" required><br>
-        Name: <input type="text" name="name" required><br>
-        Company: <input type="text" name="company" required><br>
-        Duration: <input type="text" name="dur" required><br>
-        Status: <input type="text" name="status" required><br>
-        <button type="submit">Submit</button>
-    </form>
-    <a href="/viewall">ALL</a>
-    <a href="/findpart">particular</a>
+  <h2>Internship Submission Form</h2>
+  <form action="/adddata" method="get">
+    Student ID: <input type="text" name="sid" required><br>
+    Name: <input type="text" name="name" required><br>
+    Company: <input type="text" name="company" required><br>
+    Duration: <input type="text" name="dur" required><br>
+    Status: <input type="text" name="status" required><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <hr>
+
+  <h2>Mark Internship as Completed</h2>
+  <form onsubmit="submitUpdate(event)">
+    Student ID: <input type="text" id="updateId" required><br><br>
+    <button type="submit">Mark Completed</button>
+  </form>
+
+  <script>
+    async function submitUpdate(e) {
+      e.preventDefault();
+      const id = document.getElementById('updateId').value;
+
+      const res = await fetch(`/interns/${id}/complete`, {
+        method: 'PUT'
+      });
+
+      const msg = await res.text();
+      alert(msg);
+    }
+  </script>
+
+  <hr>
+  <a href="/viewall">View All Interns</a><br>
+  <a href="/findpart">Find by Company</a>
 </body>
 </html>

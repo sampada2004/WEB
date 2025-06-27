@@ -1,47 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <script src="react/react.development.js"></script>
-    <script src="react/react-dom.development.js"></script>
-    <script src="react/prop-types.js"></script>
-
-    <script src="react/babel.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>React Employee Example</title>
+  <script src="react/react.development.js"></script>
+  <script src="react/react-dom.development.js"></script>
+  <script src="react/babel.min.js"></script>
 </head>
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        class P4 extends React.Component{
-            constructor()
-            {
-                super()
-                this.state=
-                {
-                    name:"aaa",
-                    address:"bbb",
-                    company:"ccc"
-                }
-            }
-            changeMessage()
-            {
-                this.setState(
-                    {
-                        name:"newname",
-                        address:"newaddress"
-                    }
-                )
-            }
-            render(){
-                return(<div>
-                        <p>{this.state.name} {this.state.address}{this.state.company}</p>  
-                        <button onClick={()=>this.changeMessage()}>Change</button>  
-                    </div>)
-            }
-        }
-                    ReactDOM.render(<P4 />,document.getElementById('root'));
+  <div id="root"></div>
 
-    </script>
+  <script type="text/babel">
+    class Employee extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          name: "aaa",
+          address: "bbb",
+          company: "ccc",
+          newName: "",
+          newAddress: ""
+        };
+      }
+
+      handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+      };
+
+      updateDetails = () => {
+        this.setState({
+          name: this.state.newName,
+          address: this.state.newAddress
+        });
+      };
+
+      render() {
+        return (
+          <div>
+            <h2>Employee Details</h2>
+            <p><strong>Name:</strong> {this.state.name}</p>
+            <p><strong>Address:</strong> {this.state.address}</p>
+            <p><strong>Company:</strong> {this.state.company}</p>
+
+            <h3>Update Name and Address</h3>
+            <input
+              type="text"
+              name="newName"
+              placeholder="Enter new name"
+              onChange={this.handleChange}
+            />
+            <br />
+            <input
+              type="text"
+              name="newAddress"
+              placeholder="Enter new address"
+              onChange={this.handleChange}
+            />
+            <br />
+            <button onClick={this.updateDetails}>Change</button>
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(<Employee />, document.getElementById("root"));
+  </script>
 </body>
 </html>

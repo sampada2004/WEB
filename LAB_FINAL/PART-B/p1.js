@@ -1,109 +1,107 @@
 const express = require('express');
-const app = express();
 const { MongoClient } = require('mongodb');
 const path = require('path');
-const bodyParser = require('body-parser');
+const app = express();
 
-const uri = 'mongodb://127.0.0.1:27017';
+const url = 'mongodb://127.0.0.1:27017';
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve add complaint form
+// Serve HTML page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', '1b.html'));
-});
-
-// Serve manage complaints page
-app.get('/manage', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'manage.html'));
 });
 
-// Add a complaint
-app.post('/addcomplaint', async (req, res) => {
-  const { cid, username, issue, status } = req.body;
-
-  if (!cid || !username || !issue || !status) {
-    return res.status(400).json({ message: "Invalid input" });
+// POST - Add new complaint
+app.post('/complaints', async (req, res) => {
+  const { complaintId, userName, issue, status } = req.body;
+  if (!complaintId || !userName || !issue || !status) {
+    return res.send("invalid");
   }
 
   let client;
-
   try {
-    client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-    const db = client.db('complaint');
-    const collection = db.collection('compl');
-
-    await collection.insertOne({ cid, username, issue, status });
-    res.json({ message: "Complaint added successfully" });
+    client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    const db = client.db('complaints');
+    const collection = db.collection('records');
+    await collection.insertOne({ complaintId, userName, issue, status });
+    res.send("success");
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Error adding complaint" });
+    res.status(500).json({ error: 'Submission failed' });
   } finally {
     if (client) await client.close();
   }
 });
-// PUT API endpoint (requirement from question)
-app.put('/updateStatusForm', async (req, res) => {
-  const { cid, status } = req.body;
 
-  if (!cid || !status) {
-    return res.status(400).json({ message: 'Missing complaint ID or status' });
-  }
+// PUT - Update complaint status
+app.put('/complaints/:id', async (req, res) => {
+  const complaintId = req.params.id;
+  const { status } = req.body;
 
   let client;
   try {
-    client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-    const db = client.db('complaint');
-    const result = await db.collection('compl').updateOne(
-      { cid },
+    client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    const db = client.db('complaints');
+    const collection = db.collection('records');
+
+    const result = await collection.updateOne(
+      { complaintId },
       { $set: { status } }
     );
 
     if (result.matchedCount === 0) {
-      res.status(404).json({ message: 'Complaint not found' });
-    } else {
-      res.json({ message: 'Status updated successfully' });
+      return res.send('Complaint not found');
     }
-  } catch (err) {
-    res.status(500).json({ message: 'Error updating complaint' });
-  } finally {
-    if (client) await client.close();
-  }
-});
-
-// Get pending complaints as JSON
-app.get('/pendingComplaints', async (req, res) => {
-  let client;
-  try {
-    client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-    const db = client.db('complaint');
-    const pending = await db.collection('compl').find({ status: 'Pending' }).toArray();
-    res.json({ complaints: pending });
+    res.json({ message: 'Status updated' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error fetching complaints' });
+    res.status(500).json({ error: 'Update failed' });
   } finally {
     if (client) await client.close();
   }
 });
 
-// Get all complaints as JSON
-app.get('/allComplaints', async (req, res) => {
+// GET - View pending complaints
+app.get('/complaints/pending', async (req, res) => {
+  const { status } = req.query;
+  if (!status) return res.send("invalid");
+
   let client;
   try {
-    client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-    const db = client.db('complaint');
-    const allComplaints = await db.collection('compl').find({}).toArray();
-    res.json({ complaints: allComplaints });
+    client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    const db = client.db('complaints');
+    const collection = db.collection('records');
+    const complaints = await collection.find({ status: 'Pending' }).toArray();
+    res.json(complaints);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error fetching all complaints' });
+    res.status(500).json({ error: 'Failed to fetch complaints' });
   } finally {
     if (client) await client.close();
   }
 });
 
-app.listen(5001, () => {
-  console.log('Complaint Management API running on port 5001');
+// GET - View all complaints
+app.get('/complaints/all', async (req, res) => {
+  let client;
+  try {
+    client = await MongoClient.connect(url, { useUnifiedTopology: true });
+    const db = client.db('complaints');
+    const collection = db.collection('records');
+    const complaints = await collection.find({}).toArray();
+    res.json(complaints);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to fetch complaints' });
+  } finally {
+    if (client) await client.close();
+  }
+});
+
+
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
